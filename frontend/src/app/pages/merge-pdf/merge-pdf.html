@@ -1,0 +1,44 @@
+<main>
+  <h1>Unisci PDF</h1>
+  <p>Seleziona almeno due PDF da unire.</p>
+
+  <label for="merge-files">Documenti PDF</label>
+  <input
+    id="merge-files"
+    type="file"
+    accept=".pdf,application/pdf"
+    multiple
+    (change)="onFilesSelected($event)"
+  />
+
+  <p>File selezionati: {{ files().length }}</p>
+
+
+  @for (file of files(); track file; let index = $index) {
+    <li>
+      {{ file.name }}
+
+      <button
+        type="button"
+        (click)="moveFile(index, -1)"
+        [disabled]="index === 0"
+      >
+        Sposta su
+      </button>
+
+      <button
+        type="button"
+        (click)="moveFile(index, 1)"
+        [disabled]="index === files().length - 1"
+      >
+        Sposta giù
+      </button>
+      <button type="button" (click)="removeFile(index)">
+        Rimuovi
+      </button>
+
+    </li>
+  }
+
+
+</main>
