@@ -57,3 +57,20 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Download open-api cli
+
+```bash
+npm install --save-dev @openapitools/openapi-generator-cli
+```
+
+## Generate api
+
+```bash
+npx openapi-generator-cli generate \
+  -i http://localhost:8080/q/openapi \
+  -g typescript-angular \
+  -o src/app/api \
+  --additional-properties=ngVersion=22.2.0
+  ```
