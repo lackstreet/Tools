@@ -21,7 +21,7 @@
       <button
         type="button"
         (click)="moveFile(index, -1)"
-        [disabled]="index === 0"
+        [disabled]= "merging()|| index === 0"
       >
         Sposta su
       </button>
@@ -29,15 +29,27 @@
       <button
         type="button"
         (click)="moveFile(index, 1)"
-        [disabled]="index === files().length - 1"
+        [disabled]="merging() || index === files().length - 1"
       >
         Sposta giù
       </button>
-      <button type="button" (click)="removeFile(index)">
+      <button type="button" [disabled]="merging()" (click)="removeFile(index)">
         Rimuovi
       </button>
 
     </li>
+  }
+
+  <button
+    type="button"
+    (click)="mergePdf()"
+    [disabled]="files().length < 2 || merging()"
+  >
+    {{ merging() ? 'Unione in corso...' : 'Unisci e scarica' }}
+  </button>
+
+  @if (mergeError(); as message) {
+    <p role="alert">{{ message }}</p>
   }
 
 

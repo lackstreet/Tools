@@ -30,6 +30,10 @@
   {{ inspecting() ? 'Analisi in corso...' : 'Analizza PDF' }}
 </button>
 
+@if (inspectionError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
+
 @if (pdfInfo(); as info){
   <p> Numero di pagine: {{info.pageCount}}</p>
 }

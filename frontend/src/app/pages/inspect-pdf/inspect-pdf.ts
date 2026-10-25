@@ -21,11 +21,13 @@ export class InspectPdf {
   protected readonly selectedFile = signal<File | null>(null);
 
   protected readonly inspecting = signal(false);
+  protected readonly inspectionError = signal<string | null>(null);
 
   protected onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.selectedFile.set(input.files?.item(0) ?? null);
     this.pdfInfo.set(null);
+    this.inspectionError.set(null);
   }
 
   protected checkBackend(): void {
@@ -51,6 +53,8 @@ export class InspectPdf {
       return;
     }
 
+    this.pdfInfo.set(null);
+    this.inspectionError.set(null);
     this.inspecting.set(true);
 
     this.pdfInspection.apiPdfInspectPost(file).subscribe({
@@ -61,6 +65,7 @@ export class InspectPdf {
       error: (error) => {
         console.error('Errore durante l’analisi del PDF', error);
         this.inspecting.set(false);
+        this.inspectionError.set("Impossibile analizzare il PDF. Riprova");
       },
     });
   }
