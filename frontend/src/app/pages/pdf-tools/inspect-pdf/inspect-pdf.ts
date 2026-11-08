@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { HealthCheck } from '../../services/health-check';
-import { InspectPdfResourceService, PdfInfo } from '../../api';
+import { HealthCheck } from '../../../services/health-check';
+import { InspectPdfResourceService, PdfInfo } from '../../../api';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [],
   selector: 'app-inspect-pdf',
   styleUrl: './inspect-pdf.css',
   templateUrl: './inspect-pdf.html',
@@ -65,7 +65,7 @@ export class InspectPdf {
       error: (error) => {
         console.error('Errore durante l’analisi del PDF', error);
         this.inspecting.set(false);
-        this.inspectionError.set("Impossibile analizzare il PDF. Riprova");
+        this.inspectionError.set('Impossibile analizzare il PDF. Riprova');
       },
     });
   }

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { MergePdfResourceService } from '../../api';
+import { MergePdfResourceService } from '../../../api';
 
 @Component({
   imports: [],
