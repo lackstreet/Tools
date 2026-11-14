@@ -7,6 +7,7 @@ api/extractPdfResource.service.ts
 api/healthCheck.service.ts
 api/inspectPdfResource.service.ts
 api/mergePdfResource.service.ts
+api/reorderPdfResource.service.ts
 configuration.ts
 encoder.ts
 git_push.sh

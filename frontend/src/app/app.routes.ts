@@ -4,6 +4,7 @@ import { MergePdf } from './pages/pdf-tools/merge-pdf/merge-pdf';
 import { InspectPdf } from './pages/pdf-tools/inspect-pdf/inspect-pdf';
 import { ExtractPdf } from './pages/pdf-tools/extract-pdf/extract-pdf';
 import { PdfTools } from './pages/pdf-tools/pdf-tools';
+import { ReorderPdf } from './pages/pdf-tools/reorder-pdf/reorder-pdf';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -11,4 +12,5 @@ export const routes: Routes = [
   { path: 'pdf/merge', component: MergePdf },
   { path: 'pdf/inspect', component: InspectPdf },
   { path: 'pdf/extract', component: ExtractPdf },
+  { path: 'pdf/reorder', component: ReorderPdf },
 ];

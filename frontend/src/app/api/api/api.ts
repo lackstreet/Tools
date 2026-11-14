@@ -6,4 +6,6 @@ export * from './inspectPdfResource.service';
 import { InspectPdfResourceService } from './inspectPdfResource.service';
 export * from './mergePdfResource.service';
 import { MergePdfResourceService } from './mergePdfResource.service';
-export const APIS = [ExtractPdfResourceService, HealthCheckService, InspectPdfResourceService, MergePdfResourceService];
+export * from './reorderPdfResource.service';
+import { ReorderPdfResourceService } from './reorderPdfResource.service';
+export const APIS = [ExtractPdfResourceService, HealthCheckService, InspectPdfResourceService, MergePdfResourceService, ReorderPdfResourceService];
