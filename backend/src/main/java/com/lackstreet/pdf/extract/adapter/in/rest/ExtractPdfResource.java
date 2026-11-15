@@ -3,10 +3,7 @@ package com.lackstreet.pdf.extract.adapter.in.rest;
 import com.lackstreet.pdf.extract.application.model.ExtractPdfCommand;
 import com.lackstreet.pdf.extract.application.port.in.ExtractPdfUseCase;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.reactive.RestForm;
@@ -35,7 +32,7 @@ public class ExtractPdfResource {
                 || file.size() == 0
                 || pages == null
                 || pages.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            throw new BadRequestException("Files and pages are required");
         }
         ExtractPdfCommand command = new ExtractPdfCommand(file.uploadedFile(), pages);
         byte[] extractedPdf = extractPdfUseCase.extract(command);

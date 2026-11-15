@@ -20,10 +20,9 @@ public class BadRequestExceptionMapper implements ExceptionMapper<BadRequestExce
 
         return Response.status(Response.Status.BAD_REQUEST)
                 .type(MediaType.APPLICATION_JSON)
-                .entity(new ApiError(
-                        "BAD_REQUEST",
-                        "Richiesta non valida",
-                        request
+                .entity(ProblemDetail.badRequest(
+                        request,
+                        "Richiesta non valida"
                 ))
                 .build();
 
