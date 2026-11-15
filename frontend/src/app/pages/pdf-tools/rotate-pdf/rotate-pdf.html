@@ -1,0 +1,63 @@
+<h1>Ruota pagine</h1>
+<p>Seleziona le pagine da ruotare e scegli l’angolo in senso orario.</p>
+<label for="rotate-file">Documento PDF</label>
+<input
+  id="rotate-file"
+  type="file"
+  accept=".pdf,application/pdf"
+  (change)="onFileSelected($event)"
+  [disabled]="rotating()"
+/>
+
+@if (previewError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
+
+<p>Pagine selezionate: {{ selectedPages().length }}</p>
+
+<label for="rotation-angle">Rotazione in senso orario</label>
+<select
+  id="rotation-angle"
+  [value]="degrees()"
+  (change)="onDegreesChanged($event)"
+  [disabled]="rotating()"
+>
+  <option value="90">90°</option>
+  <option value="180">180°</option>
+  <option value="270">270°</option>
+</select>
+
+<p>Angolo selezionato: {{ degrees() }}°</p>
+<div class="thumbnails">
+  @for (thumbnail of thumbnails(); track thumbnail.pageNumber) {
+    <figure>
+      <img
+        [src]="thumbnail.image"
+        [alt]="'Anteprima della pagina ' + thumbnail.pageNumber"
+      />
+      <figcaption>
+        <label>
+          <input
+            type="checkbox"
+            [checked]="selectedPages().includes(thumbnail.pageNumber)"
+            (change)="togglePage(thumbnail.pageNumber)"
+            [disabled]="rotating()"
+          />
+          Pagina {{ thumbnail.pageNumber }}
+        </label>
+      </figcaption>
+    </figure>
+  }
+</div>
+
+<button
+  type="button"
+  (click)="rotatePdf()"
+  [disabled]="!selectedFile() || selectedPages().length === 0 || !!previewError() || rotating()"
+>
+  {{ rotating() ? 'Rotazione in corso...' : 'Ruota e scarica' }}
+</button>
+
+@if (rotationError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
