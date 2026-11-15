@@ -1,0 +1,86 @@
+<h1>Estrai pagine</h1>
+
+<label for="extract-file">Documento PDF</label>
+<input
+  id="extract-file"
+  type="file"
+  accept=".pdf,application/pdf"
+  (change)="onFileSelected($event)"
+  [disabled]="extracting()"
+/>
+
+@if (selectedFile(); as file) {
+  <p>{{ file.name }}</p>
+}
+
+<label for="extract-pages">Pagine da estrarre</label>
+<input
+  id="extract-pages"
+  type="text"
+  placeholder="Esempio: 1,3,7"
+  [value]="pagesText()"
+  (input)="onPagesChanged($event)"
+  [disabled]="extracting()"
+/>
+
+<p>Selezione: {{ pagesText() }}</p>
+
+<button
+  type="button"
+  (click)="extractPdf()"
+  [disabled]="!selectedFile() || extracting()"
+>
+  {{ extracting() ? 'Estrazione in corso...' : 'Estrai e scarica' }}
+</button>
+
+@if (extractionError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
+
+@if (pageCount(); as count) {
+  <p>Pagine totali: {{ count }}</p>
+}
+
+@if (previewError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
+
+<button
+  type="button"
+  (click)="selectAllPages()"
+  [disabled]="!pageCount() || extracting()"
+>
+  Seleziona tutte
+</button>
+
+<button
+  type="button"
+  (click)="clearSelection()"
+  [disabled]="selectedPageCount() === 0 || extracting()"
+>
+  Deseleziona tutte
+</button>
+
+<p>Pagine selezionate: {{ selectedPageCount() }}</p>
+
+<div class="thumbnails">
+  @for (thumbnail of thumbnails(); track thumbnail.pageNumber) {
+    <figure>
+      <img
+        [src]="thumbnail.image"
+        [alt]="'Anteprima della pagina ' + thumbnail.pageNumber"
+      />
+      <figcaption>
+        <label>
+          <input
+            type="checkbox"
+            [checked]="isPageSelected(thumbnail.pageNumber)"
+            (change)="togglePage(thumbnail.pageNumber)"
+            [disabled]="extracting()"
+          />
+          Pagina {{ thumbnail.pageNumber }}
+        </label>
+      </figcaption>
+    </figure>
+  }
+</div>

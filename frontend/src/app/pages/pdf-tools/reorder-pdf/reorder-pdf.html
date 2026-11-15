@@ -1,0 +1,75 @@
+<h1>Riordina pagine</h1>
+<p>Seleziona un PDF e cambia l’ordine delle sue pagine.</p>
+
+<label for="reorder-file">Documento PDF</label>
+<input
+  id="reorder-file"
+  type="file"
+  accept=".pdf,application/pdf"
+  (change)="onFileSelected($event)"
+  [disabled]="reordering()"
+/>
+
+@if (previewError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
+
+<div class="thumbnails">
+  @for (thumbnail of thumbnails(); track thumbnail.pageNumber; let index = $index) {
+    <figure>
+      <img
+        [src]="thumbnail.image"
+        [alt]="'Anteprima della pagina ' + thumbnail.pageNumber"
+      />
+
+      <figcaption>Pagina {{ thumbnail.pageNumber }}</figcaption>
+
+      <button
+        type="button"
+        (click)="movePage(index, -1)"
+        [disabled]="reordering() || !previewReady() || index === 0"
+      >
+        Sposta prima
+      </button>
+
+      <button
+        type="button"
+        (click)="movePage(index, 1)"
+        [disabled]="reordering() || !previewReady() || index === thumbnails().length - 1"
+      >
+        Sposta dopo
+      </button>
+
+      <button
+        type="button"
+        (click)="movePageTo(index, 'start')"
+        [disabled]="reordering() || !previewReady() || index === 0"
+      >
+        Metti all’inizio
+      </button>
+
+      <button
+        type="button"
+        (click)="movePageTo(index, 'end')"
+        [disabled]="reordering() || !previewReady() || index === thumbnails().length - 1"
+      >
+        Metti alla fine
+      </button>
+
+    </figure>
+  }
+</div>
+
+<button
+  type="button"
+  (click)="reorderPdf()"
+  [disabled]="!previewReady() || reordering()"
+>
+  {{ reordering() ? 'Riordino in corso...' : 'Riordina e scarica' }}
+</button>
+
+@if (reorderError(); as message) {
+  <p role="alert">{{ message }}</p>
+}
+
+

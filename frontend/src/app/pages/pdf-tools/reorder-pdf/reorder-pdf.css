@@ -1,0 +1,25 @@
+.thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1rem;
+}
+
+.thumbnails figure {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.thumbnails img {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.thumbnails figcaption {
+  margin-top: 0.5rem;
+}
