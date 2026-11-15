@@ -16,7 +16,7 @@ public class BadRequestExceptionMapper implements ExceptionMapper<BadRequestExce
     @Override
     public Response toResponse(BadRequestException exception) {
         String request = (String) MDC.get("requestId");
-        LOG.warn("Request failed: code=BAD_REQUEST");
+        LOG.warn("Request failed: code=BAD_REQUEST", exception);
 
         return Response.status(Response.Status.BAD_REQUEST)
                 .type(MediaType.APPLICATION_JSON)
